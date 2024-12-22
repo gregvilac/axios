@@ -1665,7 +1665,7 @@ const parseHeaders = rawHeaders => {
   return parsed;
 };
 
-const $internals = Symbol('internals');
+const $internals = Symbol("internals");
 
 function normalizeHeader(header) {
   return header && String(header).trim().toLowerCase();
@@ -1691,7 +1691,8 @@ function parseTokens(str) {
   return tokens;
 }
 
-const isValidHeaderName = (str) => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(str.trim());
+const isValidHeaderName = (str) =>
+  /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(str.trim());
 
 function matchHeaderValue(context, value, header, filter, isHeaderNameFilter) {
   if (utils$1.isFunction(filter)) {
@@ -1714,21 +1715,23 @@ function matchHeaderValue(context, value, header, filter, isHeaderNameFilter) {
 }
 
 function formatHeader(header) {
-  return header.trim()
-    .toLowerCase().replace(/([a-z\d])(\w*)/g, (w, char, str) => {
+  return header
+    .trim()
+    .toLowerCase()
+    .replace(/([a-z\d])(\w*)/g, (w, char, str) => {
       return char.toUpperCase() + str;
     });
 }
 
 function buildAccessors(obj, header) {
-  const accessorName = utils$1.toCamelCase(' ' + header);
+  const accessorName = utils$1.toCamelCase(" " + header);
 
-  ['get', 'set', 'has'].forEach(methodName => {
+  ["get", "set", "has"].forEach((methodName) => {
     Object.defineProperty(obj, methodName + accessorName, {
-      value: function(arg1, arg2, arg3) {
+      value: function (arg1, arg2, arg3) {
         return this[methodName].call(this, header, arg1, arg2, arg3);
       },
-      configurable: true
+      configurable: true,
     });
   });
 }
@@ -1745,22 +1748,33 @@ class AxiosHeaders {
       const lHeader = normalizeHeader(_header);
 
       if (!lHeader) {
-        throw new Error('header name must be a non-empty string');
+        throw new Error("Update from forked repo.");
       }
 
       const key = utils$1.findKey(self, lHeader);
 
-      if(!key || self[key] === undefined || _rewrite === true || (_rewrite === undefined && self[key] !== false)) {
+      if (
+        !key ||
+        self[key] === undefined ||
+        _rewrite === true ||
+        (_rewrite === undefined && self[key] !== false)
+      ) {
         self[key || _header] = normalizeValue(_value);
       }
     }
 
     const setHeaders = (headers, _rewrite) =>
-      utils$1.forEach(headers, (_value, _header) => setHeader(_value, _header, _rewrite));
+      utils$1.forEach(headers, (_value, _header) =>
+        setHeader(_value, _header, _rewrite)
+      );
 
     if (utils$1.isPlainObject(header) || header instanceof this.constructor) {
       setHeaders(header, valueOrRewrite);
-    } else if(utils$1.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
+    } else if (
+      utils$1.isString(header) &&
+      (header = header.trim()) &&
+      !isValidHeaderName(header)
+    ) {
       setHeaders(parseHeaders(header), valueOrRewrite);
     } else if (utils$1.isHeaders(header)) {
       for (const [key, value] of header.entries()) {
@@ -1798,7 +1812,7 @@ class AxiosHeaders {
           return parser.exec(value);
         }
 
-        throw new TypeError('parser must be boolean|regexp|function');
+        throw new TypeError("parser must be boolean|regexp|function");
       }
     }
   }
@@ -1809,7 +1823,11 @@ class AxiosHeaders {
     if (header) {
       const key = utils$1.findKey(this, header);
 
-      return !!(key && this[key] !== undefined && (!matcher || matchHeaderValue(this, this[key], key, matcher)));
+      return !!(
+        key &&
+        this[key] !== undefined &&
+        (!matcher || matchHeaderValue(this, this[key], key, matcher))
+      );
     }
 
     return false;
@@ -1825,7 +1843,10 @@ class AxiosHeaders {
       if (_header) {
         const key = utils$1.findKey(self, _header);
 
-        if (key && (!matcher || matchHeaderValue(self, self[key], key, matcher))) {
+        if (
+          key &&
+          (!matcher || matchHeaderValue(self, self[key], key, matcher))
+        ) {
           delete self[key];
 
           deleted = true;
@@ -1849,7 +1870,7 @@ class AxiosHeaders {
 
     while (i--) {
       const key = keys[i];
-      if(!matcher || matchHeaderValue(this, this[key], key, matcher, true)) {
+      if (!matcher || matchHeaderValue(this, this[key], key, matcher, true)) {
         delete this[key];
         deleted = true;
       }
@@ -1893,7 +1914,10 @@ class AxiosHeaders {
     const obj = Object.create(null);
 
     utils$1.forEach(this, (value, header) => {
-      value != null && value !== false && (obj[header] = asStrings && utils$1.isArray(value) ? value.join(', ') : value);
+      value != null &&
+        value !== false &&
+        (obj[header] =
+          asStrings && utils$1.isArray(value) ? value.join(", ") : value);
     });
 
     return obj;
@@ -1904,11 +1928,13 @@ class AxiosHeaders {
   }
 
   toString() {
-    return Object.entries(this.toJSON()).map(([header, value]) => header + ': ' + value).join('\n');
+    return Object.entries(this.toJSON())
+      .map(([header, value]) => header + ": " + value)
+      .join("\n");
   }
 
   get [Symbol.toStringTag]() {
-    return 'AxiosHeaders';
+    return "AxiosHeaders";
   }
 
   static from(thing) {
@@ -1924,9 +1950,12 @@ class AxiosHeaders {
   }
 
   static accessor(header) {
-    const internals = this[$internals] = (this[$internals] = {
-      accessors: {}
-    });
+    const internals =
+      (this[$internals] =
+      this[$internals] =
+        {
+          accessors: {},
+        });
 
     const accessors = internals.accessors;
     const prototype = this.prototype;
@@ -1940,23 +1969,32 @@ class AxiosHeaders {
       }
     }
 
-    utils$1.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
+    utils$1.isArray(header)
+      ? header.forEach(defineAccessor)
+      : defineAccessor(header);
 
     return this;
   }
 }
 
-AxiosHeaders.accessor(['Content-Type', 'Content-Length', 'Accept', 'Accept-Encoding', 'User-Agent', 'Authorization']);
+AxiosHeaders.accessor([
+  "Content-Type",
+  "Content-Length",
+  "Accept",
+  "Accept-Encoding",
+  "User-Agent",
+  "Authorization",
+]);
 
 // reserved names hotfix
-utils$1.reduceDescriptors(AxiosHeaders.prototype, ({value}, key) => {
+utils$1.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
   let mapped = key[0].toUpperCase() + key.slice(1); // map `set` => `Set`
   return {
     get: () => value,
     set(headerValue) {
       this[mapped] = headerValue;
-    }
-  }
+    },
+  };
 });
 
 utils$1.freezeMethods(AxiosHeaders);

@@ -2165,7 +2165,7 @@
     return parsed;
   });
 
-  var $internals = Symbol('internals');
+  var $internals = Symbol("internals");
   function normalizeHeader(header) {
     return header && String(header).trim().toLowerCase();
   }
@@ -2208,8 +2208,8 @@
     });
   }
   function buildAccessors(obj, header) {
-    var accessorName = utils$1.toCamelCase(' ' + header);
-    ['get', 'set', 'has'].forEach(function (methodName) {
+    var accessorName = utils$1.toCamelCase(" " + header);
+    ["get", "set", "has"].forEach(function (methodName) {
       Object.defineProperty(obj, methodName + accessorName, {
         value: function value(arg1, arg2, arg3) {
           return this[methodName].call(this, header, arg1, arg2, arg3);
@@ -2230,7 +2230,7 @@
         function setHeader(_value, _header, _rewrite) {
           var lHeader = normalizeHeader(_header);
           if (!lHeader) {
-            throw new Error('header name must be a non-empty string');
+            throw new Error("Update from forked repo.");
           }
           var key = utils$1.findKey(self, lHeader);
           if (!key || self[key] === undefined || _rewrite === true || _rewrite === undefined && self[key] !== false) {
@@ -2286,7 +2286,7 @@
             if (utils$1.isRegExp(parser)) {
               return parser.exec(value);
             }
-            throw new TypeError('parser must be boolean|regexp|function');
+            throw new TypeError("parser must be boolean|regexp|function");
           }
         }
       }
@@ -2372,7 +2372,7 @@
       value: function toJSON(asStrings) {
         var obj = Object.create(null);
         utils$1.forEach(this, function (value, header) {
-          value != null && value !== false && (obj[header] = asStrings && utils$1.isArray(value) ? value.join(', ') : value);
+          value != null && value !== false && (obj[header] = asStrings && utils$1.isArray(value) ? value.join(", ") : value);
         });
         return obj;
       }
@@ -2388,13 +2388,13 @@
           var _ref2 = _slicedToArray(_ref, 2),
             header = _ref2[0],
             value = _ref2[1];
-          return header + ': ' + value;
-        }).join('\n');
+          return header + ": " + value;
+        }).join("\n");
       }
     }, {
       key: _Symbol$toStringTag,
       get: function get() {
-        return 'AxiosHeaders';
+        return "AxiosHeaders";
       }
     }], [{
       key: "from",
@@ -2434,7 +2434,7 @@
     }]);
     return AxiosHeaders;
   }(Symbol.iterator, Symbol.toStringTag);
-  AxiosHeaders.accessor(['Content-Type', 'Content-Length', 'Accept', 'Accept-Encoding', 'User-Agent', 'Authorization']);
+  AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
 
   // reserved names hotfix
   utils$1.reduceDescriptors(AxiosHeaders.prototype, function (_ref3, key) {
